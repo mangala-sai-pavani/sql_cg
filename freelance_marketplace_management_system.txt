@@ -1,0 +1,369 @@
+mysql> CREATE DATABASE freelance_db;
+Query OK, 1 row affected (0.269 sec)
+
+mysql> USE freelance_db;
+Database changed
+mysql> CREATE TABLE Freelancers (
+    ->     freelancer_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     name VARCHAR(100),
+    ->     skill VARCHAR(100),
+    ->     experience_years INT,
+    ->     rating DECIMAL(3,2)
+    -> );
+Query OK, 0 rows affected (0.595 sec)
+
+mysql> CREATE TABLE Clients (
+    ->     client_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     client_name VARCHAR(100),
+    ->     industry VARCHAR(100),
+    ->     city VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.604 sec)
+
+mysql> CREATE TABLE Projects (
+    ->     project_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     client_id INT,
+    ->     title VARCHAR(100),
+    ->     budget INT,
+    ->     status VARCHAR(50),
+    ->     FOREIGN KEY (client_id) REFERENCES Clients(client_id)
+    -> );
+Query OK, 0 rows affected (0.357 sec)
+
+mysql> CREATE TABLE Applications (
+    ->     application_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     freelancer_id INT,
+    ->     project_id INT,
+    ->     proposal_amount INT,
+    ->     status VARCHAR(50),
+    ->     FOREIGN KEY (freelancer_id) REFERENCES Freelancers(freelancer_id),
+    ->     FOREIGN KEY (project_id) REFERENCES Projects(project_id)
+    -> );
+Query OK, 0 rows affected (0.296 sec)
+
+mysql> INSERT INTO Freelancers VALUES
+    -> (1,'Aarav','Python',4,4.7),
+    -> (2,'Diya','Web Dev',2,4.2),
+    -> (3,'Rohan','AI/ML',5,4.9),
+    -> (4,'Sneha','UI/UX',3,4.5),
+    -> (5,'Karan','Java',6,4.6),
+    -> (6,'Meera','Data Science',3,4.3);
+Query OK, 6 rows affected (0.139 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Clients VALUES
+    -> (1,'TechCorp','IT','Bangalore'),
+    -> (2,'HealthPlus','Healthcare','Hyderabad'),
+    -> (3,'EduSoft','Education','Chennai'),
+    -> (4,'FinBank','Finance','Mumbai'),
+    -> (5,'RetailX','Retail','Pune');
+Query OK, 5 rows affected (0.058 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Projects VALUES
+    -> (1,1,'AI Chatbot',50000,'Open'),
+    -> (2,2,'Hospital System',40000,'Closed'),
+    -> (3,3,'E-Learning App',60000,'Open'),
+    -> (4,4,'Bank Dashboard',70000,'Open'),
+    -> (5,5,'E-commerce Website',55000,'Closed');
+Query OK, 5 rows affected (0.087 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> INSERT INTO Applications VALUES
+    -> (1,1,1,45000,'Selected'),
+    -> (2,2,1,42000,'Rejected'),
+    -> (3,3,3,58000,'Selected'),
+    -> (4,4,4,65000,'Pending'),
+    -> (5,5,5,50000,'Selected'),
+    -> (6,6,3,60000,'Rejected');
+Query OK, 6 rows affected (0.103 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> -- EASY QUERIES
+
+mysql> -- 1. Find freelancers with rating greater than 4.5
+Query OK, 0 rows affected (0.073 sec)
+
+mysql> SELECT name, rating FROM Freelancers WHERE rating > 4.5;
++-------+--------+
+| name  | rating |
++-------+--------+
+| Aarav |   4.70 |
+| Rohan |   4.90 |
+| Karan |   4.60 |
++-------+--------+
+3 rows in set (0.108 sec)
+
+mysql> -- List clients located in Bangalore
+Query OK, 0 rows affected (0.007 sec)
+
+mysql> SELECT client_name FROM Clients WHERE city = 'Bangalore';
++-------------+
+| client_name |
++-------------+
+| TechCorp    |
++-------------+
+1 row in set (0.028 sec)
+
+mysql> -- Find projects with budget greater than 45000
+Query OK, 0 rows affected (0.003 sec)
+
+mysql> SELECT title, budget FROM Projects WHERE budget > 45000;
++--------------------+--------+
+| title              | budget |
++--------------------+--------+
+| AI Chatbot         |  50000 |
+| E-Learning App     |  60000 |
+| Bank Dashboard     |  70000 |
+| E-commerce Website |  55000 |
++--------------------+--------+
+4 rows in set (0.007 sec)
+
+mysql> -- Find freelancers who know Python
+Query OK, 0 rows affected (0.005 sec)
+
+mysql> SELECT name FROM Freelancers WHERE skill LIKE '%Python%';
++-------+
+| name  |
++-------+
+| Aarav |
++-------+
+1 row in set (0.286 sec)
+
+mysql> -- List all open projects
+Query OK, 0 rows affected (0.005 sec)
+
+mysql> SELECT * FROM Projects WHERE status = 'Open';
++------------+-----------+----------------+--------+--------+
+| project_id | client_id | title          | budget | status |
++------------+-----------+----------------+--------+--------+
+|          1 |         1 | AI Chatbot     |  50000 | Open   |
+|          3 |         3 | E-Learning App |  60000 | Open   |
+|          4 |         4 | Bank Dashboard |  70000 | Open   |
++------------+-----------+----------------+--------+--------+
+3 rows in set (0.008 sec)
+
+mysql> -- Find freelancers with experience between 3 and 6 years
+Query OK, 0 rows affected (0.005 sec)
+
+mysql> SELECT name, experience_years FROM Freelancers WHERE experience_years BETWEEN 3 AND 6;
++-------+------------------+
+| name  | experience_years |
++-------+------------------+
+| Aarav |                4 |
+| Rohan |                5 |
+| Sneha |                3 |
+| Karan |                6 |
+| Meera |                3 |
++-------+------------------+
+5 rows in set (0.078 sec)
+
+mysql> -- INTERMEDIATE QUERIES
+Query OK, 0 rows affected (0.003 sec)
+
+mysql> -- Find average rating of all freelancers
+Query OK, 0 rows affected (0.005 sec)
+
+mysql> SELECT AVG(rating) FROM Freelancers;
++-------------+
+| AVG(rating) |
++-------------+
+|    4.533333 |
++-------------+
+1 row in set (0.093 sec)
+
+mysql> -- Count projects based on status
+Query OK, 0 rows affected (0.005 sec)
+
+mysql> SELECT status, COUNT(*) FROM Projects GROUP BY status;
++--------+----------+
+| status | COUNT(*) |
++--------+----------+
+| Open   |        3 |
+| Closed |        2 |
++--------+----------+
+2 rows in set (0.056 sec)
+
+mysql> -- Find maximum project budget
+Query OK, 0 rows affected (0.003 sec)
+
+mysql> SELECT MAX(budget) FROM Projects;
++-------------+
+| MAX(budget) |
++-------------+
+|       70000 |
++-------------+
+1 row in set (0.035 sec)
+
+mysql> -- Count freelancers grouped by skill
+Query OK, 0 rows affected (0.005 sec)
+
+mysql> SELECT skill, COUNT(*) FROM Freelancers GROUP BY skill;
++--------------+----------+
+| skill        | COUNT(*) |
++--------------+----------+
+| Python       |        1 |
+| Web Dev      |        1 |
+| AI/ML        |        1 |
+| UI/UX        |        1 |
+| Java         |        1 |
+| Data Science |        1 |
++--------------+----------+
+6 rows in set (0.009 sec)
+
+mysql> -- Count clients in each city
+Query OK, 0 rows affected (0.004 sec)
+
+mysql> SELECT city, COUNT(*) FROM Clients GROUP BY city;
++-----------+----------+
+| city      | COUNT(*) |
++-----------+----------+
+| Bangalore |        1 |
+| Hyderabad |        1 |
+| Chennai   |        1 |
+| Mumbai    |        1 |
+| Pune      |        1 |
++-----------+----------+
+5 rows in set (0.009 sec)
+
+mysql> -- Find total budget of all projects
+Query OK, 0 rows affected (0.006 sec)
+
+mysql> SELECT SUM(budget) FROM Projects;
++-------------+
+| SUM(budget) |
++-------------+
+|      275000 |
++-------------+
+1 row in set (0.007 sec)
+
+mysql> -- HARD QUERIES
+Query OK, 0 rows affected (0.008 sec)
+
+mysql> -- Show freelancer name with project title and application status
+Query OK, 0 rows affected (0.005 sec)
+
+mysql> SELECT f.name, p.title, a.status
+    -> FROM Freelancers f
+    -> JOIN Applications a ON f.freelancer_id = a.freelancer_id
+    -> JOIN Projects p ON a.project_id = p.project_id;
++-------+--------------------+----------+
+| name  | title              | status   |
++-------+--------------------+----------+
+| Aarav | AI Chatbot         | Selected |
+| Diya  | AI Chatbot         | Rejected |
+| Rohan | E-Learning App     | Selected |
+| Sneha | Bank Dashboard     | Pending  |
+| Karan | E-commerce Website | Selected |
+| Meera | E-Learning App     | Rejected |
++-------+--------------------+----------+
+6 rows in set (0.054 sec)
+
+mysql> -- Count number of applications per freelancer
+Query OK, 0 rows affected (0.005 sec)
+
+mysql> SELECT f.name, COUNT(a.application_id)
+    -> FROM Freelancers f
+    -> JOIN Applications a ON f.freelancer_id = a.freelancer_id
+    -> GROUP BY f.name;
++-------+-------------------------+
+| name  | COUNT(a.application_id) |
++-------+-------------------------+
+| Aarav |                       1 |
+| Diya  |                       1 |
+| Rohan |                       1 |
+| Sneha |                       1 |
+| Karan |                       1 |
+| Meera |                       1 |
++-------+-------------------------+
+6 rows in set (0.066 sec)
+
+mysql> -- Find total budget per client
+Query OK, 0 rows affected (0.005 sec)
+
+mysql> SELECT c.client_name, SUM(p.budget)
+    -> FROM Clients c
+    -> JOIN Projects p ON c.client_id = p.client_id
+    -> GROUP BY c.client_name;
++-------------+---------------+
+| client_name | SUM(p.budget) |
++-------------+---------------+
+| TechCorp    |         50000 |
+| HealthPlus  |         40000 |
+| EduSoft     |         60000 |
+| FinBank     |         70000 |
+| RetailX     |         55000 |
++-------------+---------------+
+5 rows in set (0.008 sec)
+
+mysql> -- Find freelancers who got selected
+Query OK, 0 rows affected (0.003 sec)
+
+mysql> SELECT f.name
+    -> FROM Freelancers f
+    -> JOIN Applications a ON f.freelancer_id = a.freelancer_id
+    -> WHERE a.status = 'Selected';
++-------+
+| name  |
++-------+
+| Aarav |
+| Rohan |
+| Karan |
++-------+
+3 rows in set (0.057 sec)
+
+mysql> -- Find projects with more than 1 application
+Query OK, 0 rows affected (0.006 sec)
+
+mysql> SELECT p.title, COUNT(a.application_id)
+    -> FROM Projects p
+    -> JOIN Applications a ON p.project_id = a.project_id
+    -> GROUP BY p.title;
++--------------------+-------------------------+
+| title              | COUNT(a.application_id) |
++--------------------+-------------------------+
+| AI Chatbot         |                       2 |
+| E-Learning App     |                       2 |
+| Bank Dashboard     |                       1 |
+| E-commerce Website |                       1 |
++--------------------+-------------------------+
+4 rows in set (0.014 sec)
+
+mysql> -- Freelancers who never applied to any project
+Query OK, 0 rows affected (0.004 sec)
+
+mysql> SELECT name FROM Freelancers
+    -> WHERE freelancer_id NOT IN (SELECT freelancer_id FROM Applications);
+Empty set (0.096 sec)
+
+mysql> -- Projects with budget higher than average
+Query OK, 0 rows affected (0.004 sec)
+
+mysql> SELECT title FROM Projects
+    -> WHERE budget > (SELECT AVG(budget) FROM Projects);
++----------------+
+| title          |
++----------------+
+| E-Learning App |
+| Bank Dashboard |
++----------------+
+2 rows in set (0.078 sec)
+
+mysql> -- Average rating by skill
+Query OK, 0 rows affected (0.005 sec)
+
+mysql> SELECT skill, AVG(rating) FROM Freelancers GROUP BY skill;
++--------------+-------------+
+| skill        | AVG(rating) |
++--------------+-------------+
+| Python       |    4.700000 |
+| Web Dev      |    4.200000 |
+| AI/ML        |    4.900000 |
+| UI/UX        |    4.500000 |
+| Java         |    4.600000 |
+| Data Science |    4.300000 |
++--------------+-------------+
+6 rows in set (0.079 sec)
+
+mysql> Terminal close -- exit!
