@@ -1,0 +1,303 @@
+mysql> -- New Authors
+mysql> INSERT INTO Authors (author_name, bio) VALUES
+    -> ('Sudha Murthy', 'Indian author and philanthropist.'),
+    -> ('Ashwin Sanghi', 'Writer of mythological thrillers.');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> -- New Genres
+mysql> INSERT INTO Genres (genre_name) VALUES
+    -> ('Thriller'),
+    -> ('Biography');
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> -- New Books
+mysql> INSERT INTO Books
+    -> (title, price, stock_quantity, author_id, genre_id)
+    -> VALUES
+    -> ('Wise and Otherwise', 350.00, 25, 5, 1),
+    -> ('The Krishna Key', 499.00, 15, 6, 5),
+    -> ('The Secret of the Nagas', 420.00, 5, 4, 2),
+    -> ('Grandmas Bag of Stories', 280.00, 70, 5, 1);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> -- New Customers
+mysql> INSERT INTO Customers
+    -> (name, email, city, join_date)
+    -> VALUES
+    -> ('Rahul Verma', 'rahulv@gmail.com', 'Chennai', '2023-07-10'),
+    -> ('Sneha Iyer', 'snehaiyer@gmail.com', 'Bangalore', '2023-08-01');
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> -- New Orders
+mysql> INSERT INTO Orders
+    -> (order_date, customer_id)
+    -> VALUES
+    -> ('2023-07-15', 5),
+    -> ('2023-08-05', 6);
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> -- New Order Details
+mysql> INSERT INTO Order_Details
+    -> (order_id, book_id, quantity_ordered, price_at_time_of_order)
+    -> VALUES
+    -> (5, 6, 2, 499.00),
+    -> (5, 7, 1, 420.00),
+    -> (6, 8, 3, 280.00);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> -- EASY QUERIES
+mysql> 
+mysql> -- 1.Find books costing more than 300 and having stock less than 30
+mysql> SELECT title, price, stock_quantity
+    -> FROM Books
+    -> WHERE price > 300
+    -> AND stock_quantity < 30;
++-------------------------+--------+----------------+
+| title                   | price  | stock_quantity |
++-------------------------+--------+----------------+
+| The God of Small Things | 450.00 |             20 |
+| Wise and Otherwise      | 350.00 |             25 |
+| The Krishna Key         | 499.00 |             15 |
+| The Secret of the Nagas | 420.00 |              5 |
++-------------------------+--------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> -- 2.Find customers who joined after March 2023 and are from cities starting with B
+mysql> SELECT name, city, join_date
+    -> FROM Customers
+    -> WHERE join_date > '2023-03-01'
+    -> AND city LIKE 'B%';
++------------+-----------+------------+
+| name       | city      | join_date  |
++------------+-----------+------------+
+| Sneha Iyer | Bangalore | 2023-08-01 |
++------------+-----------+------------+
+1 row in set (0.01 sec)
+
+mysql> -- 3.Find books whose title contains the word Secret or God
+mysql> SELECT title
+    -> FROM Books
+    -> WHERE title LIKE '%Secret%'
+    -> OR title LIKE '%God%';
++-------------------------+
+| title                   |
++-------------------------+
+| The God of Small Things |
+| The Secret of the Nagas |
++-------------------------+
+2 rows in set (0.00 sec)
+
+mysql> -- 4.Display books that are priced between 250 and 450
+mysql> SELECT title, price
+    -> FROM Books
+    -> WHERE price BETWEEN 250 AND 450;
++-------------------------+--------+
+| title                   | price  |
++-------------------------+--------+
+| Five Point Someone      | 250.00 |
+| 2 States                | 300.00 |
+| The God of Small Things | 450.00 |
+| The Immortals of Meluha | 399.00 |
+| Wise and Otherwise      | 350.00 |
+| The Secret of the Nagas | 420.00 |
+| Grandmas Bag of Stories | 280.00 |
++-------------------------+--------+
+7 rows in set (0.01 sec)
+
+mysql> -- MEDIUM QUERIES
+mysql> 
+mysql> -- 1.Find the average price of books in stock greater than 20
+mysql> SELECT AVG(price) AS average_book_price
+    -> FROM Books
+    -> WHERE stock_quantity > 20;
++--------------------+
+| average_book_price |
++--------------------+
+|         296.500000 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> -- 2.Count how many customers are from each city
+mysql> SELECT city, COUNT(customer_id) AS total_customers
+    -> FROM Customers
+    -> GROUP BY city;
++-----------+-----------------+
+| city      | total_customers |
++-----------+-----------------+
+| Mumbai    |               1 |
+| Ahmedabad |               1 |
+| Hyderabad |               1 |
+| Delhi     |               1 |
+| Chennai   |               1 |
+| Bangalore |               1 |
++-----------+-----------------+
+6 rows in set (0.00 sec)
+
+mysql> -- 3.Find the maximum and minimum priced books
+mysql> SELECT 
+    -> MAX(price) AS highest_price,
+    -> MIN(price) AS lowest_price
+    -> FROM Books;
++---------------+--------------+
+| highest_price | lowest_price |
++---------------+--------------+
+|        499.00 |       200.00 |
++---------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> -- 4.Find genres having more than 1 book
+mysql> SELECT genre_id, COUNT(book_id) AS total_books
+    -> FROM Books
+    -> GROUP BY genre_id
+    -> HAVING COUNT(book_id) > 1;
++----------+-------------+
+| genre_id | total_books |
++----------+-------------+
+|        1 |           5 |
+|        2 |           2 |
++----------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> -- HARD QUERIES
+mysql> 
+mysql> Find customer names with the total amount they spent on books
+    -> ^C
+mysql> -- 1.Find customer names with the total amount they spent on books
+mysql> SELECT 
+    -> c.name,
+    -> SUM(od.quantity_ordered * od.price_at_time_of_order) AS total_spent
+    -> FROM Customers c
+    -> JOIN Orders o
+    -> ON c.customer_id = o.customer_id
+    -> JOIN Order_Details od
+    -> ON o.order_id = od.order_id
+    -> GROUP BY c.name
+    -> ORDER BY total_spent DESC;
++--------------+-------------+
+| name         | total_spent |
++--------------+-------------+
+| Rahul Verma  |     1418.00 |
+| Aarav Sharma |      950.00 |
+| Sneha Iyer   |      840.00 |
+| Vihaan Reddy |      450.00 |
+| Diya Patel   |      399.00 |
++--------------+-------------+
+5 rows in set (0.01 sec)
+
+mysql> -- 2.Display author names and total number of books written by them
+mysql> SELECT 
+    -> a.author_name,
+    -> COUNT(b.book_id) AS total_books
+    -> FROM Authors a
+    -> JOIN Books b
+    -> ON a.author_id = b.author_id
+    -> GROUP BY a.author_name
+    -> ORDER BY total_books DESC;
++----------------+-------------+
+| author_name    | total_books |
++----------------+-------------+
+| Chetan Bhagat  |           2 |
+| Amish Tripathi |           2 |
+| Sudha Murthy   |           2 |
+| Arundhati Roy  |           1 |
+| R.K. Narayan   |           1 |
+| Ashwin Sanghi  |           1 |
++----------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> -- 3.Find the most ordered books with total quantities sold
+mysql> SELECT 
+    -> b.title,
+    -> SUM(od.quantity_ordered) AS total_sold
+    -> FROM Books b
+    -> JOIN Order_Details od
+    -> ON b.book_id = od.book_id
+    -> GROUP BY b.title
+    -> ORDER BY total_sold DESC;
++-------------------------+------------+
+| title                   | total_sold |
++-------------------------+------------+
+| The Secret of the Nagas |          3 |
+| Malgudi Days            |          2 |
+| Wise and Otherwise      |          2 |
+| Five Point Someone      |          1 |
+| The Immortals of Meluha |          1 |
+| 2 States                |          1 |
+| The God of Small Things |          1 |
+| The Krishna Key         |          1 |
++-------------------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> -- 4.Find customers who purchased books worth more than 700 total
+mysql> SELECT 
+    -> c.name,
+    -> SUM(od.quantity_ordered * od.price_at_time_of_order) AS total_purchase
+    -> FROM Customers c
+    -> JOIN Orders o
+    -> ON c.customer_id = o.customer_id
+    -> JOIN Order_Details od
+    -> ON o.order_id = od.order_id
+    -> GROUP BY c.name
+    -> HAVING total_purchase > 700;
++--------------+----------------+
+| name         | total_purchase |
++--------------+----------------+
+| Aarav Sharma |         950.00 |
+| Rahul Verma  |        1418.00 |
+| Sneha Iyer   |         840.00 |
++--------------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> -- ::::::::::::::::::::::::::::::::: DESCRIPTION OF THE QUERIES WRITTEN::::::::::::::::::::::::::::::::
+mysql> 
+mysql> -- EASY QUERY 1:
+mysql> -- Returns books priced above 300 with stock less than 30 using WHERE clause with AND operator.
+mysql> 
+mysql> -- EASY QUERY 2:
+mysql> -- Returns customers who joined after March 2023 and whose city starts with letter 'B' using WHERE, LIKE, and AND operators.
+mysql> 
+mysql> -- EASY QUERY 3:
+mysql> -- Returns books whose titles contain the words 'Secret' or 'God' using WHERE clause with LIKE and OR operators.
+mysql> 
+mysql> -- EASY QUERY 4:
+mysql> -- Returns books priced between 250 and 450 using BETWEEN operator in WHERE clause.
+mysql> 
+mysql> -- INTERMEDIATE QUERY 1:
+mysql> -- Returns the average price of books having stock greater than 20 using AVG aggregate function and WHERE clause.
+mysql> 
+mysql> -- INTERMEDIATE QUERY 2:
+mysql> -- Returns the total number of customers from each city using COUNT aggregate function with GROUP BY clause.
+mysql> 
+mysql> -- INTERMEDIATE QUERY 3:
+mysql> -- Returns the highest and lowest priced books using MAX and MIN aggregate functions.
+mysql> 
+mysql> -- INTERMEDIATE QUERY 4:
+mysql> -- Returns genres that contain more than one book using COUNT function with GROUP BY and HAVING clauses.
+mysql> 
+mysql> -- HARD QUERY 1:
+mysql> -- Returns each customer with the total amount spent on books using JOIN, SUM aggregate function, GROUP BY, and ORDER BY clauses.
+mysql> 
+mysql> -- HARD QUERY 2:
+mysql> -- Returns authors along with the total number of books written by them using JOIN, COUNT function, GROUP BY, and ORDER BY clauses.
+mysql> 
+mysql> -- HARD QUERY 3:
+mysql> -- Returns the most ordered books along with total quantities sold using JOIN, SUM function, GROUP BY, and ORDER BY clauses.
+mysql> 
+mysql> -- HARD QUERY 4:
+mysql> -- Returns customers whose total book purchase amount exceeds 700 using JOIN, SUM function, GROUP BY, and HAVING clause.
+mysql> 
+mysql> -- BONUS QUERY:
+mysql> -- Returns customers who purchased books from more than one genre using multiple JOINs, COUNT DISTINCT, GROUP BY, and HAVING clauses.
+mysql> 
+mysql> EXIT
