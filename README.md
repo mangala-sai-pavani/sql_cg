@@ -1,87 +1,134 @@
 
----
 
-# SQL Projects Collection
+# 📚 Bookstore Management System
 
----
+## Project Overview
 
-Bookstore Management System
+The **Bookstore Management System** is a relational database project developed using **MySQL**.
 
-Project Overview The Bookstore Management System is a relational database project developed using MySQL.
 This project is designed to manage bookstore operations such as maintaining books, authors, genres, customers, orders, and order details.
 
 The database demonstrates the implementation of:
 
-Table creation
-Primary and foreign keys
-Data insertion
-Relationships between tables
-SQL queries of different difficulty levels
-Technologies Used
+* Table creation
+* Primary and foreign keys
+* Data insertion
+* Relationships between tables
+* SQL queries of different difficulty levels
 
-MySQL
-SQL
-Database Tables The project contains the following tables:
+---
 
-Authors
-Genres
-Customers
-Books
-Orders
-Order_Details
-Relationships
+## Technologies Used
 
-One author can write multiple books
-One genre can contain multiple books
-One customer can place multiple orders
-One order can contain multiple books
-SQL Queries Included
+* MySQL
+* SQL
 
-Easy Level Queries Queries using:
+---
 
-WHERE clause
-Operators
-BETWEEN
-LIKE
-Intermediate Level Queries Queries using:
+## Database Tables
 
-Aggregate Functions
-AVG()
-MAX()
-COUNT()
-SUM()
-GROUP BY
-Hard Level Queries Queries using:
+The project contains the following tables:
 
-JOINS
-GROUP BY
-HAVING
-ORDER BY
-Features
+* Authors
+* Genres
+* Customers
+* Books
+* Orders
+* Order_Details
 
-Proper relational database design
-Use of primary and foreign keys
-Data analysis using SQL queries
-ER Diagram included
-Sample records inserted for testing
-Learning Outcomes Through this project, the following concepts were practiced:
+---
 
-Database normalization
-SQL query writing
-Table relationships
-Aggregate functions
-Joins and relational analysis
-ER diagram design
-Author Developed as part of SQL database practice and academic learning.
+## Relationships
 
-============================================================================================================================================
+* One author can write multiple books.
+* One genre can contain multiple books.
+* One customer can place multiple orders.
+* One order can contain multiple books through the **Order_Details** table.
+* Each book belongs to one genre and one author.
 
-# Freelance Marketplace Management System
+---
+
+## SQL Queries Included
+
+### Easy Level Queries
+
+Queries using:
+
+* WHERE clause
+* Comparison Operators (`=`, `>`, `<`)
+* BETWEEN
+* LIKE
+* 
+---
+
+### Intermediate Level Queries
+
+Queries using:
+
+* Aggregate Functions
+* `AVG()`
+* `COUNT()`
+* `MAX()`
+* `MIN()`
+* `SUM()`
+* `GROUP BY`
+
+---
+
+### Hard Level Queries
+
+Queries using:
+
+* INNER JOIN
+* GROUP BY
+* HAVING
+* ORDER BY
+* Subqueries
+
+---
+
+## Features
+
+* Proper relational database design
+* Use of Primary Keys and Foreign Keys
+* One-to-Many relationships
+* Many-to-Many relationship through Order_Details
+* Sample records inserted for testing
+* Data retrieval using SQL queries
+* Aggregate analysis using SQL functions
+* Join operations across multiple tables
+* ER Diagram included
+
+---
+
+## Learning Outcomes
+
+Through this project, the following concepts were practiced:
+
+* Database normalization
+* SQL query writing
+* Table relationships
+* Aggregate functions
+* Joins
+* Subqueries
+* Data analysis
+* ER diagram design
+
+---
+
+## Author
+
+Developed as part of SQL database practice and academic learning.
+
+---
+
+# 💼 Freelance Marketplace Management System
 
 ## Project Overview
 
-The Freelance Marketplace Management System is a relational database project developed using MySQL.
-This project is designed to manage freelance operations such as freelancers, clients, skills, projects, applications, contracts, payments, and reviews.
+The **Freelance Marketplace Management System** is a relational database project developed using **MySQL**.
+
+This project is designed to manage freelance platform operations such as maintaining freelancers, clients, projects, and project applications.
 
 The database demonstrates the implementation of:
 
@@ -104,26 +151,20 @@ The database demonstrates the implementation of:
 
 The project contains the following tables:
 
-1. Freelancers
-2. Clients
-3. Skills
-4. Freelancer_Skills
-5. Projects
-6. Applications
-7. Contracts
-8. Payments
-9. Reviews
+* Freelancers
+* Clients
+* Projects
+* Applications
 
 ---
 
 ## Relationships
 
-* One freelancer can have multiple skills
-* One client can post multiple projects
-* One project can receive multiple applications
-* One freelancer can apply to multiple projects
-* One contract is created per selected application
-* One contract can have one payment and review
+* One client can post multiple projects.
+* One project belongs to one client.
+* One freelancer can apply to multiple projects.
+* One project can receive multiple applications.
+* Applications act as a bridge between freelancers and projects.
 
 ---
 
@@ -134,39 +175,48 @@ The project contains the following tables:
 Queries using:
 
 * WHERE clause
-* Operators
+* Comparison Operators (`=`, `>`, `<`)
 * BETWEEN
 * LIKE
+
+---
 
 ### Intermediate Level Queries
 
 Queries using:
 
 * Aggregate Functions
-* AVG()
-* MAX()
-* COUNT()
-* SUM()
-* GROUP BY
+* `AVG()`
+* `COUNT()`
+* `MAX()`
+* `SUM()`
+* `GROUP BY`
+
+---
 
 ### Hard Level Queries
 
 Queries using:
 
-* JOINS
+* INNER JOIN
 * GROUP BY
-* HAVING
-* ORDER BY
-
+* Aggregate Functions
+* Subqueries
+* Multi-table Relationships
+  
 ---
 
 ## Features
 
 * Proper relational database design
-* Use of primary and foreign keys
-* Data analysis using SQL queries
-* ER Diagram included
+* Use of Primary Keys and Foreign Keys
+* One-to-Many relationships
 * Sample records inserted for testing
+* Data retrieval using SQL queries
+* Aggregate analysis using SQL functions
+* Join operations across multiple tables
+* Subquery implementation
+* ER Diagram included
 
 ---
 
@@ -174,244 +224,21 @@ Queries using:
 
 Through this project, the following concepts were practiced:
 
+* Relational database design
 * Database normalization
 * SQL query writing
+* Primary and Foreign Keys
 * Table relationships
 * Aggregate functions
-* Joins and relational analysis
+* Joins
+* Subqueries
+* Data analysis using SQL
 * ER diagram design
 
 ---
 
 ## Author
 
-Developed as part of SQL database practice and academic learning
-
-============================================================================================================================================
-
-# Online Course Platform
-
-## Project Overview
-
-The Online Course Platform is a relational database project developed using MySQL.
-This project is designed to manage online learning operations such as students, instructors, courses, enrollments, lessons, assignments, certificates, and reviews.
-
-The database demonstrates the implementation of:
-
-* Table creation
-* Primary and foreign keys
-* Data insertion
-* Relationships between tables
-* SQL queries of different difficulty levels
+Developed as part of SQL database practice and academic learning.
 
 ---
-
-## Technologies Used
-
-* MySQL
-* SQL
-
----
-
-## Database Tables
-
-The project contains the following tables:
-
-1. Students
-2. Instructors
-3. Categories
-4. Courses
-5. Lessons
-6. Enrollments
-7. Assignments
-8. Certificates
-9. Reviews
-
----
-
-## Relationships
-
-* One instructor can create multiple courses
-* One student can enroll in multiple courses
-* One course can have multiple lessons
-* One course can have multiple assignments
-* One student can earn multiple certificates
-
----
-
-## SQL Queries Included
-
-### Easy Level Queries
-
-Queries using:
-
-* WHERE clause
-* Operators
-* BETWEEN
-* LIKE
-
-### Intermediate Level Queries
-
-Queries using:
-
-* Aggregate Functions
-* AVG()
-* MAX()
-* COUNT()
-* SUM()
-* GROUP BY
-
-### Hard Level Queries
-
-Queries using:
-
-* JOINS
-* GROUP BY
-* HAVING
-* ORDER BY
-
----
-
-## Features
-
-* Proper relational database design
-* Use of primary and foreign keys
-* Data analysis using SQL queries
-* ER Diagram included
-* Sample records inserted for testing
-
----
-
-## Learning Outcomes
-
-Through this project, the following concepts were practiced:
-
-* Database normalization
-* SQL query writing
-* Table relationships
-* Aggregate functions
-* Joins and relational analysis
-* ER diagram design
-
----
-
-## Author
-
-Developed as part of SQL database practice and academic learning
-
-============================================================================================================================================
-
-# Research Publication Management System
-
-## Project Overview
-
-The Research Publication Management System is a relational database project developed using MySQL.
-This project is designed to manage academic research activities such as researchers, institutions, departments, research papers, journals, conferences, keywords, authorship, and citations.
-
-The database demonstrates the implementation of:
-
-* Table creation
-* Primary and foreign keys
-* Data insertion
-* Relationships between tables
-* SQL queries of different difficulty levels
-
----
-
-## Technologies Used
-
-* MySQL
-* SQL
-
----
-
-## Database Tables
-
-The project contains the following tables:
-
-1. Institutions
-2. Departments
-3. Researchers
-4. Journals
-5. Conferences
-6. Research_Papers
-7. Paper_Authors
-8. Keywords
-9. Paper_Keywords
-10. Citations
-
----
-
-## Relationships
-
-* One institution can have multiple departments
-* One department can have multiple researchers
-* One research paper can have multiple authors
-* One researcher can write multiple papers
-* One paper can have multiple keywords
-* One paper can have multiple citations
-
----
-
-## SQL Queries Included
-
-### Easy Level Queries
-
-Queries using:
-
-* WHERE clause
-* Operators
-* BETWEEN
-* LIKE
-
-### Intermediate Level Queries
-
-Queries using:
-
-* Aggregate Functions
-* AVG()
-* MAX()
-* COUNT()
-* SUM()
-* GROUP BY
-
-### Hard Level Queries
-
-Queries using:
-
-* JOINS
-* GROUP BY
-* HAVING
-* ORDER BY
-
----
-
-## Features
-
-* Proper relational database design
-* Use of primary and foreign keys
-* Data analysis using SQL queries
-* ER Diagram included
-* Sample records inserted for testing
-
----
-
-## Learning Outcomes
-
-Through this project, the following concepts were practiced:
-
-* Database normalization
-* SQL query writing
-* Table relationships
-* Aggregate functions
-* Joins and relational analysis
-* ER diagram design
-
----
-
-## Author
-
-Developed as part of SQL database practice and academic learning
-
-============================================================================================================================================
-
